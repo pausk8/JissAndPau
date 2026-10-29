@@ -218,7 +218,7 @@
 
     <div class="neon-container" id="mainContainer">
         <!-- Pantalla 1: Buenos días hermosa -->
-        <div class="neon-screen active" id="screen1" onclick="goToScreen2()">
+        <div class="neon-screen active" id="screen1">
             <h1 class="neon-glow-purple">Buenos días,<br>hermosa</h1>
             <p class="click-hint">(Toca la pantalla para continuar)</p>
         </div>
@@ -245,6 +245,7 @@
     </div>
 
     <script>
+        const container = document.getElementById('mainContainer');
         const screen1 = document.getElementById('screen1');
         const screen2 = document.getElementById('screen2');
         const rainContainer = document.getElementById('rainContainer');
@@ -260,7 +261,7 @@
                 
                 skull.style.left = Math.random() * 100 + 'vw';
                 
-                // CAMBIO: Caída ultra lenta (tardan entre 15 y 25 segundos en bajar)
+                // Caída ultra lenta (entre 15 y 25 segundos)
                 const duration = Math.random() * 10 + 15;
                 skull.style.animationDuration = duration + 's';
                 
@@ -274,20 +275,25 @@
                 }, duration * 1000);
             }
 
-            // Crear una de inmediato al entrar
+            // Crear una de inmediato y luego una cada 10 segundos
             createSkull();
-
-            // CAMBIO: ¡Mucho más pocas! Aparece una nueva calavera cada 10 segundos (10000 ms)
             setInterval(createSkull, 10000);
         }
 
-        function goToScreen2() {
+        // Evento limpio para cambiar de pantalla al tocar en cualquier parte
+        function handleScreenTransition(e) {
             if (screen1.classList.contains('active')) {
                 screen1.classList.remove('active');
                 screen2.classList.add('active');
                 startSkullRain();
             }
         }
+
+        container.addEventListener('click', handleScreenTransition);
+        container.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            handleScreenTransition(e);
+        });
 
         function showSecret(type, event) {
             event.stopPropagation();
