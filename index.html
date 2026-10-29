@@ -260,8 +260,8 @@
                 
                 skull.style.left = Math.random() * 100 + 'vw';
                 
-                // Caída lenta (entre 12 y 18 segundos)
-                const duration = Math.random() * 6 + 12;
+                // CAMBIO: Caída ultra lenta (tardan entre 15 y 25 segundos en bajar)
+                const duration = Math.random() * 10 + 15;
                 skull.style.animationDuration = duration + 's';
                 
                 const size = Math.random() * 15 + 18;
@@ -277,8 +277,8 @@
             // Crear una de inmediato al entrar
             createSkull();
 
-            // Aparece una nueva calavera cada 5 segundos (5000 milisegundos)
-            setInterval(createSkull, 5000);
+            // CAMBIO: ¡Mucho más pocas! Aparece una nueva calavera cada 10 segundos (10000 ms)
+            setInterval(createSkull, 10000);
         }
 
         function goToScreen2() {
@@ -294,4 +294,15 @@
 
             if (type === 'yellow') {
                 secretText.style.color = '#fde047';
-                secretText.innerHTML = '“Quisiera
+                secretText.innerHTML = '“Quisiera descifrar la forma en que miras” 💛';
+            } else if (type === 'purple') {
+                secretText.style.color = '#d8b4fe';
+                secretText.innerHTML = '“Quiero comerte la boca” 💜';
+            } else if (type === 'red') {
+                secretText.style.color = '#f87171';
+                secretText.innerHTML = '“Quiero quererte siempre” ❤️';
+            }
+        }
+    </script>
+</body>
+</html>
