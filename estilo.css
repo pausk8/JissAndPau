@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    background-color: #050508; /* Fondo negro absoluto tipo noche */
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Contenedor central simulando un cuadro oscuro */
+.neon-container {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    padding: 40px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Pantallas individuales */
+.neon-screen {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.95);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.neon-screen.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+/* --- ESTILO DE LETRERO NEÓN MORADO --- */
+.neon-glow-purple {
+    font-family: 'Pacifico', cursive;
+    font-size: 3.8rem;
+    color: #f3e8ff; /* Color interior blanco/morado claro */
+    line-height: 1.3;
+    /* Efecto de resplandor de neón morado múltiple */
+    text-shadow: 
+        0 0 5px #a855f7,
+        0 0 10px #a855f7,
+        0 0 20px #a855f7,
+        0 0 40px #9333ea,
+        0 0 80px #7e22ce,
+        0 0 120px #6b21a8;
+    animation: flicker 3s infinite alternate;
+}
+
+/* Pistas para interactuar */
+.click-hint {
+    margin-top: 30px;
+    font-size: 0.9rem;
+    color: #7c3aed;
+    letter-spacing: 1px;
+    font-weight: 300;
+}
+
+/* --- TEXTO DE LA FRASE PROFUNDA --- */
+.neon-text-quote {
+    font-size: 1.15rem;
+    color: #e9d5ff;
+    line-height: 1.8;
+    font-style: italic;
+    padding: 0 15px;
+    /* Resplandor más suave y sofisticado para leer el texto largo */
+    text-shadow: 
+        0 0 4px #c084fc,
+        0 0 12px rgba(168, 85, 247, 0.6),
+        0 0 25px rgba(147, 51, 234, 0.4);
+}
+
+.final-heart {
+    font-size: 2.5rem;
+    margin-top: 25px;
+    filter: drop-shadow(0 0 10px #a855f7);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+/* Efecto sutil de parpadeo de neón real (Flicker) */
+@keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow: 
+            0 0 5px #a855f7,
+            0 0 10px #a855f7,
+            0 0 20px #a855f7,
+            0 0 40px #9333ea,
+            0 0 80px #7e22ce,
+            0 0 120px #6b21a8;
+    }
+    20%, 24%, 55% {
+        opacity: 0.85;
+        text-shadow: none;
+    }
+}
+
+/* Ajuste para pantallas pequeñas / celulares */
+@media (max-width: 480px) {
+    .neon-glow-purple {
+        font-size: 3rem;
+    }
+    .neon-text-quote {
+        font-size: 1rem;
+    }
+}
