@@ -260,8 +260,8 @@
                 
                 skull.style.left = Math.random() * 100 + 'vw';
                 
-                // CAMBIO: Duración mucho más lenta (entre 7 y 12 segundos para bajar)
-                const duration = Math.random() * 5 + 7;
+                // CAMBIO: ¡Mucho más lento! Tardan entre 12 y 20 segundos en bajar
+                const duration = Math.random() * 8 + 12;
                 skull.style.animationDuration = duration + 's';
                 
                 const size = Math.random() * 15 + 18;
@@ -272,7 +272,7 @@
                 setTimeout(() => {
                     skull.remove();
                 }, duration * 1000);
-            }, 600); // Espaciadas un poco más para que caigan con elegancia
+            }, 800); // Espaciadas para que se vea estético y sutil
         }
 
         function goToScreen2() {
