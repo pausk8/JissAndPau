@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti ✨</title>
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background-color: #050508;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Contenedor de la lluvia de calaveras */
+        .rain-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+            display: none;
+        }
+
+        .rain-container.active {
+            display: block;
+        }
+
+        .falling-skull {
+            position: absolute;
+            top: -50px;
+            font-size: 24px;
+            animation: fall linear infinite;
+            filter: drop-shadow(0 0 8px #a855f7);
+            opacity: 0.7;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.8;
+            }
+            85% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .neon-container {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 600px;
+            padding: 40px 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .neon-screen {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.95);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .neon-screen.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        .neon-glow-purple {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.8rem;
+            color: #f3e8ff;
+            line-height: 1.3;
+            text-shadow: 
+                0 0 5px #a855f7,
+                0 0 10px #a855f7,
+                0 0 20px #a855f7,
+                0 0 40px #9333ea,
+                0 0 80px #7e22ce,
+                0 0 120px #6b21a8;
+            animation: flicker 3s infinite alternate;
+        }
+
+        .click-hint {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #7c3aed;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        .neon-text-quote {
+            font-size: 1.1rem;
+            color: #e9d5ff;
+            line-height: 1.7;
+            font-style: italic;
+            padding: 0 15px;
+            text-shadow: 
+                0 0 4px #c084fc,
+                0 0 12px rgba(168, 85, 247, 0.6),
+                0 0 25px rgba(147, 51, 234, 0.4);
+            margin-bottom: 20px;
+        }
+
+        /* Botones de corazones interactivos */
+        .interactive-hearts {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 15px 0;
+        }
+
+        .heart-btn {
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: transform 0.2s, filter 0.2s;
+            animation: pulse 2s infinite;
+        }
+
+        .heart-btn:hover {
+            transform: scale(1.3);
+        }
+
+        .heart-yellow {
+            filter: drop-shadow(0 0 10px #facc15);
+        }
+
+        .heart-purple {
+            filter: drop-shadow(0 0 10px #c084fc);
+        }
+
+        .heart-red {
+            filter: drop-shadow(0 0 10px #ef4444);
+        }
+
+        .secret-message {
+            min-height: 60px;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #f3e8ff;
+            padding: 0 10px;
+            margin-top: 10px;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
+            transition: opacity 0.4s ease;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+                text-shadow: 
+                    0 0 5px #a855f7,
+                    0 0 10px #a855f7,
+                    0 0 20px #a855f7,
+                    0 0 40px #9333ea,
+                    0 0 80px #7e22ce,
+                    0 0 120px #6b21a8;
+            }
+            20%, 24%, 55% {
+                opacity: 0.85;
+                text-shadow: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .neon-glow-purple { font-size: 3rem; }
+            .neon-text-quote { font-size: 0.95rem; }
+            .heart-btn { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor de la lluvia de calaveras -->
+    <div class="rain-container" id="rainContainer"></div>
+
+    <div class="neon-container" id="mainContainer">
+        <!-- Pantalla 1: Buenos días hermosa -->
+        <div class="neon-screen active" id="screen1" onclick="goToScreen2()">
+            <h1 class="neon-glow-purple">Buenos días,<br>hermosa</h1>
+            <p class="click-hint">(Toca la pantalla para continuar)</p>
+        </div>
+
+        <!-- Pantalla 2: Frase principal + Corazones interactivos -->
+        <div class="neon-screen" id="screen2">
+            <p class="neon-text-quote">
+                "No te puedo hacer entender. No puedo hacer que nadie entienda lo que me está pasando. Ni siquiera puedo explicármelo a mí misma"<br><br>
+                <b>Te quiero mucho. PAU</b>
+            </p> 
+
+            <!-- Corazones interactivos -->
+            <div class="interactive-hearts">
+                <button class="heart-btn heart-yellow" onclick="showSecret('yellow', event)">💛</button>
+                <button class="heart-btn heart-purple" onclick="showSecret('purple', event)">💜</button>
+                <button class="heart-btn heart-red" onclick="showSecret('red', event)">❤️</button>
+            </div>
+
+            <!-- Pantalla donde cambia el mensaje al presionar cada corazón -->
+            <div class="secret-message" id="secretText">
+                <span style="font-size: 0.9rem; color: #a78bfa; font-style: italic;">(Toca un corazón para descubrir un mensaje ✨)</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const screen1 = document.getElementById('screen1');
+        const screen2 = document.getElementById('screen2');
+        const rainContainer = document.getElementById('rainContainer');
+        const secretText = document.getElementById('secretText');
+
+        function startSkullRain() {
+            rainContainer.classList.add('active');
+            
+            setInterval(() => {
+                const skull = document.createElement('div');
+                skull.classList.add('falling-skull');
+                skull.innerHTML = '💀';
+                
+                skull.style.left = Math.random() * 100 + 'vw';
+                
+                // CAMBIO: Duración mucho más lenta (entre 7 y 12 segundos para bajar)
+                const duration = Math.random() * 5 + 7;
+                skull.style.animationDuration = duration + 's';
+                
+                const size = Math.random() * 15 + 18;
+                skull.style.fontSize = size + 'px';
+
+                rainContainer.appendChild(skull);
+
+                setTimeout(() => {
+                    skull.remove();
+                }, duration * 1000);
+            }, 600); // Espaciadas un poco más para que caigan con elegancia
+        }
+
+        function goToScreen2() {
+            if (screen1.classList.contains('active')) {
+                screen1.classList.remove('active');
+                screen2.classList.add('active');
+                startSkullRain();
+            }
+        }
+
+        function showSecret(type, event) {
+            event.stopPropagation();
+
+            if (type === 'yellow') {
+                secretText.style.color = '#fde047';
+                secretText.innerHTML = '“Quisiera descifrar la forma en que me miras” 💛';
+            } else if (type === 'purple') {
+                secretText.style.color = '#d8b4fe';
+                secretText.innerHTML = '“Quiero comerte la boca” 💜';
+            } else if (type === 'red') {
+                secretText.style.color = '#f87171';
+                secretText.innerHTML = '“Quiero quererte siempre” ❤️';
+            }
+        }
+    </script>
+</body>
+</html>
