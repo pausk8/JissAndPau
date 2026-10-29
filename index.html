@@ -233,4 +233,65 @@
             <!-- Corazones interactivos -->
             <div class="interactive-hearts">
                 <button class="heart-btn heart-yellow" onclick="showSecret('yellow', event)">💛</button>
-                <button class="heart-btn heart-purple"
+                <button class="heart-btn heart-purple" onclick="showSecret('purple', event)">💜</button>
+                <button class="heart-btn heart-red" onclick="showSecret('red', event)">❤️</button>
+            </div>
+
+            <!-- Pantalla donde cambia el mensaje al presionar cada corazón -->
+            <div class="secret-message" id="secretText">
+                <span style="font-size: 0.9rem; color: #a78bfa; font-style: italic;">(Toca un corazón para descubrir un mensaje ✨)</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const screen1 = document.getElementById('screen1');
+        const screen2 = document.getElementById('screen2');
+        const rainContainer = document.getElementById('rainContainer');
+        const secretText = document.getElementById('secretText');
+
+        function startSkullRain() {
+            rainContainer.classList.add('active');
+            
+            function createSkull() {
+                const skull = document.createElement('div');
+                skull.classList.add('falling-skull');
+                skull.innerHTML = '💀';
+                
+                skull.style.left = Math.random() * 100 + 'vw';
+                
+                // Caída lenta (entre 12 y 18 segundos)
+                const duration = Math.random() * 6 + 12;
+                skull.style.animationDuration = duration + 's';
+                
+                const size = Math.random() * 15 + 18;
+                skull.style.fontSize = size + 'px';
+
+                rainContainer.appendChild(skull);
+
+                setTimeout(() => {
+                    skull.remove();
+                }, duration * 1000);
+            }
+
+            // Crear una de inmediato al entrar
+            createSkull();
+
+            // Aparece una nueva calavera cada 5 segundos (5000 milisegundos)
+            setInterval(createSkull, 5000);
+        }
+
+        function goToScreen2() {
+            if (screen1.classList.contains('active')) {
+                screen1.classList.remove('active');
+                screen2.classList.add('active');
+                startSkullRain();
+            }
+        }
+
+        function showSecret(type, event) {
+            event.stopPropagation();
+
+            if (type === 'yellow') {
+                secretText.style.color = '#fde047';
+                secretText.innerHTML = '“Quisiera
